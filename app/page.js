@@ -29,7 +29,7 @@ export default async function Home() {
     <main >
       <div className="flex justify-center items-start p-10 ">
         <div className=" w-auto md:w-7/12 p-2 border-2 rounded-lg border-sky-900 h-3/5">
-          <div className="border-2 rounded-md bg-sky-500 ">
+          <div className="border-2 rounded-md bg-purple-500 ">
             <h1 className="text-white text-3xl text-center p-5 font-bold">All Topics</h1>
           </div>
           {data?.result?.length ? // if data length is 0 then it will return null. else data.
