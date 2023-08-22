@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const Add = () => {
     const router = useRouter();
-    const [flag,setFlag] = useState(false);
+    const [flag, setFlag] = useState(false);
     const { values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset } = useFormik({
         initialValues: {
             title: '',
@@ -26,7 +26,7 @@ const Add = () => {
                     headers: {
                         "Content-type": "application/json",
                     },
-                    body: JSON.stringify({ title : values.title, description : values.description })
+                    body: JSON.stringify({ title: values.title, description: values.description })
                 })
                 const result = await response.json();
                 setFlag(false);
@@ -40,12 +40,13 @@ const Add = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                      });
+                    });
                     router.refresh();
                     router.push("/");
                 }
                 else throw new Error("Failed to Add topic");
             } catch (err) {
+                setFlag(false);
                 toast.error('Failed ! try again', {
                     position: "top-right",
                     autoClose: 2000,
@@ -55,7 +56,7 @@ const Add = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
-                    });
+                });
             }
         }
     })
@@ -76,23 +77,26 @@ const Add = () => {
                             <input type="text" placeholder="Title.." value={values.title} name="title"
                                 onChange={handleChange} onBlur={handleBlur}
                                 className="border border-blue-400 rounded-md w-full px-5 py-2" />
-                                {errors.title && touched.title ? <p className="text-red-500 font-bold ">{errors.title}</p> : null}
+                            {errors.title && touched.title ? <p className="text-red-500 font-bold ">{errors.title}</p> : null}
                         </div>
 
                         <div className="mb-3">
                             <label className="text-xl inline-block mb-2">Description :- </label><br />
                             <textarea type="textarea" placeholder="Description.." value={values.description} name="description"
-                                onChange={handleChange} onBlur={handleBlur}rows={7}
+                                onChange={handleChange} onBlur={handleBlur} rows={7}
                                 className="border border-blue-400 rounded-md w-full px-2 py-1 " />
-                                {errors.description && touched.description ? <p className="text-red-500 font-bold ">{errors.description}</p> : null}
+                            {errors.description && touched.description ? <p className="text-red-500 font-bold ">{errors.description}</p> : null}
                         </div>
                         <div className="flex justify-between sm:justify-evenly px-3">
                             <button type="reset"
                                 className="bg-red-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold">Clear</button>
-                            <button type="submit"
-                                className="bg-green-500 w-28 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow flex justify-between">
-                                <span className={`${flag ? "animate-spin" : "hidden"} w-5 h-5 border-t-2 rounded-xl inline-block border-t-white`}></span>
-                            Add</button>
+                            {
+                                flag
+                                    ? <span className={`animate-spin w-14 border-t-2 rounded-t-full block border-t-blue-900`}></span>
+                                    : <button type="submit"
+                                        className="bg-green-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow ">
+                                        Add</button>
+                            }
                         </div>
                     </div>
                 </div>

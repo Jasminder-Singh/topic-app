@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const Editform = ({ title, description, id }) => {
   const router = useRouter();
-
+  const [flag, setFlag] = useState(false);
   const { values, errors, touched, handleChange, handleSubmit, handleBlur, handleReset } = useFormik({
     initialValues: {
       title: title,
@@ -18,17 +18,19 @@ const Editform = ({ title, description, id }) => {
       description: Yup.string().required('Description is required')
     }),
     onSubmit: async (values) => {
-    
+
       try {
+        setFlag(true);
         const response = await fetch(`https://topic-tracer.vercel.app/api/topics/${id}`, {
           method: "PUT",
           cache: "no-store",
           headers: {
             "Content-type": "application/json"
           },
-          body: JSON.stringify({ newTitle : values.title, newDescription : values.description })
+          body: JSON.stringify({ newTitle: values.title, newDescription: values.description })
         });
         const final = await response.json();
+        setFlag(false);
         if (final.message == "success") {
           toast.success('Updated Successfully', {
             position: "top-right",
@@ -44,11 +46,21 @@ const Editform = ({ title, description, id }) => {
           router.push("/");
         }
       } catch (err) {
-        console.log(err);
+        setFlag(false);
+        toast.error('Failed ! try again', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     }
   })
- 
+
   return (
     <div className="font-bold text-xl mx-2">
       <form onSubmit={handleSubmit} onReset={handleReset}>
@@ -63,7 +75,7 @@ const Editform = ({ title, description, id }) => {
               <input type="text" placeholder="Title.." value={values.title} name="title"
                 onChange={handleChange} onBlur={handleBlur}
                 className="border-2 border-blue-400 rounded-md w-full px-5 py-2" />
-                {errors.title && touched.title ? <p>{errors.title}</p> : null}
+              {errors.title && touched.title ? <p>{errors.title}</p> : null}
             </div>
 
             <div className="mb-3">
@@ -71,13 +83,18 @@ const Editform = ({ title, description, id }) => {
               <textarea type="textarea" placeholder="Description.." value={values.description} name="description"
                 onChange={handleChange} onBlur={handleBlur} rows={7}
                 className="border-2 border-blue-400 rounded-md w-full px-2 py-1 " />
-                {errors.description && touched.description ? <p>{errors.description}</p> : null}
+              {errors.description && touched.description ? <p>{errors.description}</p> : null}
             </div>
-            <div className="flex justify-between px-3">
+            <div className="flex justify-between sm:justify-evenly px-3">
               <button type="reset"
                 className="bg-red-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold">Clear</button>
-              <button type="submit"
-                className="bg-green-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow">Update</button>
+              {
+                flag
+                  ? <span className={`animate-spin w-14 border-t-2 rounded-t-full block border-t-blue-900`}></span>
+                  : <button type="submit"
+                    className="bg-green-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow">
+                    Update</button>
+              }
             </div>
           </div>
         </div>
