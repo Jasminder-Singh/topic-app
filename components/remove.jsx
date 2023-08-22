@@ -6,7 +6,7 @@ export default function Remove({ id }) {
     const router = useRouter();
     const remove = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/topics?id=${id}`,{
+            const response = await fetch(`https://topic-tracer.vercel.app/api/topics?id=${id}`,{
                 method : "DELETE"
             });
             const result = await response.json();

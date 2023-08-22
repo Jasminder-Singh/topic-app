@@ -20,7 +20,7 @@ const Editform = ({ title, description, id }) => {
     onSubmit: async (values) => {
     
       try {
-        const response = await fetch(`http://localhost:3000/api/topics/${id}`, {
+        const response = await fetch(`https://topic-tracer.vercel.app/api/topics/${id}`, {
           method: "PUT",
           cache: "no-store",
           headers: {

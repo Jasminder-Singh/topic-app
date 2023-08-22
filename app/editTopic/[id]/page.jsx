@@ -2,7 +2,7 @@ import Editform from "@/components/edit";
 
 const getById = async(id)=> {
     try{
-        const response = await fetch(`http://localhost:3000/api/topics/${id}`,{
+        const response = await fetch(`https://topic-tracer.vercel.app/api/topics/${id}`,{
             mehtod : "GET",
             cache : "no-store",
             headers : {

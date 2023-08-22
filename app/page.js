@@ -7,7 +7,7 @@ import Link from 'next/link';
 // For Accessing the data form the database;
 const getData = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/topics", {
+    const response = await fetch("http://topic-tracer.vercel.app/api/topics", {
       method: "GET",
       cache: "no-store",
       headers: {

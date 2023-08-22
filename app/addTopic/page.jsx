@@ -18,7 +18,7 @@ const Add = () => {
         }),
         onSubmit: async (values) => {
             try {
-                const response = await fetch("http://localhost:3000/api/topics", {
+                const response = await fetch("https://topic-tracer.vercel.app/api/topics", {
                     method: "POST",
                     cache: "no-store",
                     headers: {
