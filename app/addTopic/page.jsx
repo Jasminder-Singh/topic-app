@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 const Add = () => {
     const router = useRouter();
+    const [flag,setFlag] = useState(false);
     const { values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset } = useFormik({
         initialValues: {
             title: '',
@@ -18,6 +19,7 @@ const Add = () => {
         }),
         onSubmit: async (values) => {
             try {
+                setFlag(true);
                 const response = await fetch("https://topic-tracer.vercel.app/api/topics", {
                     method: "POST",
                     cache: "no-store",
@@ -27,7 +29,7 @@ const Add = () => {
                     body: JSON.stringify({ title : values.title, description : values.description })
                 })
                 const result = await response.json();
-
+                setFlag(false);
                 if (result.message == "Ok") {
                     toast.success('Successfully Added', {
                         position: "top-right",
@@ -88,7 +90,9 @@ const Add = () => {
                             <button type="reset"
                                 className="bg-red-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold">Clear</button>
                             <button type="submit"
-                                className="bg-green-500 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow">Add</button>
+                                className="bg-green-500 w-28 px-6 py-2 rounded-md text-lg font-serif font-extrabold hover:shadow flex justify-between">
+                                <span className={`${flag ? "animate-spin" : "hidden"} w-5 h-5 border-t-2 rounded-xl inline-block border-t-white`}></span>
+                            Add</button>
                         </div>
                     </div>
                 </div>
