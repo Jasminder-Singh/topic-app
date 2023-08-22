@@ -32,7 +32,7 @@ export default async function Home() {
           <div className="border-2 rounded-md bg-sky-500 ">
             <h1 className="text-white text-3xl text-center p-5 font-bold">All Topics</h1>
           </div>
-          {data.result?.length ? // if data length is 0 then it will return null. else data.
+          {data?.result?.length ? // if data length is 0 then it will return null. else data.
             data.result.map((item) => {
               return (
                 <div className="border-slate-900 p-3 border-2 border-dashed my-2 md:flex justify-between">
