@@ -4,10 +4,15 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import Password from "@/components/password";
 
 const Add = () => {
     const router = useRouter();
     const [flag, setFlag] = useState(false);
+    const [password, setPassword] = useState("");
+
+
+
     const { values, errors, touched, handleChange, handleBlur, handleSubmit, handleReset } = useFormik({
         initialValues: {
             title: '',
@@ -63,8 +68,9 @@ const Add = () => {
 
 
     return (
-        <div className="border-2 w-full">
 
+        <div className="border-2 w-full">
+            <Password />
             <form onSubmit={handleSubmit} onReset={handleReset} className="w-full">
                 <div className="py-5 flex justify-center items-center border-2 border-red-300 ">
                     <div className="border shadow rounded-lg h-full w-full sm:w-[60%] md:w-[50%] p-5 bg-gray-100">

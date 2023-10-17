@@ -1,6 +1,7 @@
 import Remove from '@/components/remove';
 import { BiEdit } from 'react-icons/bi';
 import Link from 'next/link';
+import Password from '@/components/password';
 
 
 
@@ -27,6 +28,7 @@ export default async function Home() {
 
   return (
     <main >
+      <Password />
       <div className="flex justify-center items-start p-10 ">
         <div className=" w-auto md:w-7/12 p-2 border-2 rounded-lg border-sky-900 h-3/5">
           <div className="border-2 rounded-md bg-purple-500 ">
@@ -40,8 +42,8 @@ export default async function Home() {
                     <h1 className="text-2xl font-bold flex items-center font-mono"><span className="bg-slate-900 w-2 h-2 mx-1 rounded-full"></span>{item.title}</h1>
                     <p className="px-5 font-semibold text-lg text-slate-600 text-justify ">{item.description}</p>
                   </div>
-                  <div className='flex items-center justify-evenly'>
-                    <Remove id={item._id} />
+                  <div className='flex  md:flex-col items-center justify-evenly border-2 border-black'>
+                    <Remove id={item._id} className='text-2xl'/>
                     <Link href={`/editTopic/${item._id}`}>
                       <BiEdit className='text-2xl text-blue-500 cursor-pointer' id={item._id} />
                     </Link>
